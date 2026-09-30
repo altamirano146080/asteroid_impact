@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "asteroid-impact-sdoml"
-version = "0.0.1"
+version = "0.0.5"
 description = "Machine learning project focused on data exploration, model training, visualization, and performance evaluation."
 authors = [
   { name = "Ruth Altamirano" },
