@@ -11,6 +11,20 @@ from .components import FEATURES_PATH, LABELS_PATH, MODEL_PATH, SCALER_PATH
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 
+FEATURE_COLUMNS = [
+    "palermo_scale_cum",
+    "v_infinity_kms",
+    "n_potential_impacts",
+    "palermo_scale_max",
+    "diameter_km",
+    "last_observation_jd",
+    "absolute_magnitude",
+    "torino_scale",
+    "year_range_min",
+    "year_range_max",
+]
+
+
 def load_trained_model():
     if not MODEL_PATH.exists() or not SCALER_PATH.exists():
         return None, None, "❌ Trained model not found. Train a model first."
@@ -95,18 +109,35 @@ def get_evaluation_text() -> str:
 
 
 def predict_single_asteroid(
-    velocity_km_s: float,
+    palermo_scale_cum: float,
+    v_infinity_kms: float,
+    n_potential_impacts: float,
+    palermo_scale_max: float,
+    diameter_km: float,
+    last_observation_jd: float,
     absolute_magnitude: float,
-    diameter_m: float,
-    palermo_scale: float,
-    days_to_closest_encounter: float,
+    torino_scale: float,
+    year_range_min: float,
+    year_range_max: float,
 ) -> str:
     model, scaler, err = load_trained_model()
     if err:
         return err
 
     try:
-        row = np.array([[velocity_km_s, absolute_magnitude, diameter_m, palermo_scale, days_to_closest_encounter]])
+        values = [
+            palermo_scale_cum,
+            v_infinity_kms,
+            n_potential_impacts,
+            palermo_scale_max,
+            diameter_km,
+            last_observation_jd,
+            absolute_magnitude,
+            torino_scale,
+            year_range_min,
+            year_range_max,
+        ]
+        row = pd.DataFrame([values], columns=FEATURE_COLUMNS)
         scaled = scaler.transform(row)
         log_pred = model.predict(scaled, verbose=0)[0][0]
         prob = 10 ** log_pred
@@ -150,11 +181,17 @@ def create_evaluation_tab() -> None:
         gr.Markdown("### Predict a new asteroid")
         with gr.Row():
             with gr.Column():
-                velocity = gr.Number(label="Velocity (km/s)", value=20.0)
-                magnitude = gr.Number(label="Absolute Magnitude", value=25.0)
-                diameter = gr.Number(label="Diameter (m)", value=140.0)
-                palermo = gr.Number(label="Palermo Scale", value=-3.0)
-                days = gr.Number(label="Days to Encounter", value=500.0)
+                palermo_cum = gr.Number(label="Cumulative Palermo scale", value=-2.38)
+                velocity = gr.Number(label="Velocity at infinity (km/s)", value=8.42)
+                potential_impacts = gr.Number(label="Potential impacts", value=4)
+                palermo_max = gr.Number(label="Maximum Palermo scale", value=-2.39)
+                diameter = gr.Number(label="Diameter (km)", value=0.029)
+            with gr.Column():
+                observation = gr.Number(label="Last observation (Julian day)", value=2454595.5)
+                magnitude = gr.Number(label="Absolute magnitude", value=25.31)
+                torino = gr.Number(label="Torino scale", value=0)
+                year_min = gr.Number(label="Risk interval start year", value=2027)
+                year_max = gr.Number(label="Risk interval end year", value=2122)
                 predict_btn = gr.Button("🔮 Predict", variant="primary")
 
             with gr.Column():
@@ -166,6 +203,17 @@ def create_evaluation_tab() -> None:
 
         predict_btn.click(
             fn=predict_single_asteroid,
-            inputs=[velocity, magnitude, diameter, palermo, days],
+            inputs=[
+                palermo_cum,
+                velocity,
+                potential_impacts,
+                palermo_max,
+                diameter,
+                observation,
+                magnitude,
+                torino,
+                year_min,
+                year_max,
+            ],
             outputs=prediction_box,
         )

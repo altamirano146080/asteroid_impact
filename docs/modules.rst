@@ -48,3 +48,23 @@ Model prediction
    :members:
    :undoc-members:
    :show-inheritance:
+
+Interactive application
+-----------------------
+
+.. automodule:: software_development_ml_practice_1.app
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Interactive UI
+--------------
+
+.. automodule:: software_development_ml_practice_1.ui.data_exploration
+   :members:
+
+.. automodule:: software_development_ml_practice_1.ui.training
+   :members:
+
+.. automodule:: software_development_ml_practice_1.ui.evaluation
+   :members:

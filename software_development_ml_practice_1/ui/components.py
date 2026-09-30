@@ -25,35 +25,29 @@ PREDICTIONS_PATH = PROCESSED_DIR / "predictions.csv"
 
 
 def ensure_data_ready() -> bool:
-    """Ensure dataset, features and labels exist."""
+    """Ensure the dataset, features, and labels exist, downloading when needed."""
     try:
+        from software_development_ml_practice_1.dataset import download_dataset, prepare_dataset
+        from software_development_ml_practice_1.plots import create_features
+
+        if not RAW_DATASET_PATH.exists():
+            download_dataset(output_path=RAW_DATASET_PATH)
+
         if not PROCESSED_DATASET_PATH.exists() and RAW_DATASET_PATH.exists():
-            df = pd.read_csv(RAW_DATASET_PATH)
-            df = df.dropna().copy()
-            PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-            df.to_csv(PROCESSED_DATASET_PATH, index=False)
+            prepare_dataset(
+                input_path=RAW_DATASET_PATH,
+                output_path=PROCESSED_DATASET_PATH,
+            )
 
         if not FEATURES_PATH.exists() or not LABELS_PATH.exists():
             if PROCESSED_DATASET_PATH.exists():
-                df = pd.read_csv(PROCESSED_DATASET_PATH)
-                df = df.dropna().copy()
-                if "impact_probability" in df.columns:
-                    df["log_impact_probability"] = np.log10(df["impact_probability"])
-                    numeric_columns = df.select_dtypes(include="number").columns.tolist()
-                    if "impact_probability" in numeric_columns:
-                        numeric_columns.remove("impact_probability")
-                    if "log_impact_probability" in numeric_columns:
-                        numeric_columns.remove("log_impact_probability")
-
-                    features = df[numeric_columns]
-                    labels = df["log_impact_probability"]
-                    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-                    features.to_csv(FEATURES_PATH, index=False)
-                    labels.to_frame(name="log_impact_probability").to_csv(
-                        LABELS_PATH, index=False
-                    )
-                    return True
-            return False
+                create_features(
+                    input_path=PROCESSED_DATASET_PATH,
+                    features_path=FEATURES_PATH,
+                    labels_path=LABELS_PATH,
+                )
+            else:
+                return False
         return True
     except Exception:
         return False
@@ -104,6 +98,6 @@ def download_sample_csv(rows: int = 10):
     if df is None:
         return None
     sample = df.head(int(rows))
-    tmp = tempfile.NamedTemporaryFile(suffix=".csv", delete=False)
-    sample.to_csv(tmp.name, index=False)
-    return tmp.name
+    with tempfile.NamedTemporaryFile(suffix=".csv", delete=False) as tmp:
+        sample.to_csv(tmp.name, index=False)
+        return tmp.name

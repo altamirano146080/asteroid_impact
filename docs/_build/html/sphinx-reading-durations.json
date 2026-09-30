@@ -1,3 +1,8 @@
 {
-    "modules": 5.272
+    "index": 0.028,
+    "installation": 0.015,
+    "modules": 7.19,
+    "results": 0.031,
+    "usage": 0.01,
+    "workflow": 0.02
 }
