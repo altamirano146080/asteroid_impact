@@ -2,9 +2,9 @@
 
 import gradio as gr
 
-from software_development_ml_practice_1.ui.data_exploration import create_data_exploration_tab
-from software_development_ml_practice_1.ui.training import create_training_tab
-from software_development_ml_practice_1.ui.evaluation import create_evaluation_tab
+from asteroid_impact.ui.data_exploration import create_data_exploration_tab
+from asteroid_impact.ui.training import create_training_tab
+from asteroid_impact.ui.evaluation import create_evaluation_tab
 
 
 def create_interface() -> gr.Blocks:

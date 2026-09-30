@@ -6,7 +6,7 @@ This project follows a Cookiecutter Data Science-style organization and includes
 
 ## Documentation
 
-The publish documentation is at: [https://altamirano146080.github.io/software_development_ml_practice_1/](https://altamirano146080.github.io/software_development_ml_practice_1/)
+The publish documentation is at: [https://altamirano146080.github.io/asteroid_impact/](https://altamirano146080.github.io/asteroid_impact/)
 
 ## Overview
 
@@ -65,7 +65,7 @@ This project uses the **`sentry-impact-risk`** dataset, which provides informati
 │       ├── velocity_vs_palermo.png
 │       ├── magnitude_vs_palermo.png
 │       └── potential_impact_timeline.png
-├── software_development_ml_practice_1/
+├── asteroid_impact/
 │   ├── __init__.py
 │   ├── config.py
 │   ├── dataset.py
@@ -92,7 +92,7 @@ Contains the complete exploratory analysis workflow, including:
 - preprocessing the data
 - training and evaluating the baseline model
 
-### `software_development_ml_practice_1/config.py`
+### `asteroid_impact/config.py`
 
 Defines the main project directories and creates the required folders for:
 
@@ -102,11 +102,11 @@ Defines the main project directories and creates the required folders for:
 - trained models
 - reports and figures
 
-### `software_development_ml_practice_1/dataset.py`
+### `asteroid_impact/dataset.py`
 
 Downloads or loads the asteroid impact-risk dataset and saves a local sample in the raw data directory. It also creates a cleaned dataset for the following pipeline steps.
 
-### `software_development_ml_practice_1/features.py`
+### `asteroid_impact/features.py`
 
 Creates the input features and target variable by:
 
@@ -115,7 +115,7 @@ Creates the input features and target variable by:
 - selecting numerical predictive variables
 - saving `features.csv` and `labels.csv`
 
-### `software_development_ml_practice_1/plots.py`
+### `asteroid_impact/plots.py`
 
 Generates the exploratory data analysis visualizations, including:
 
@@ -125,7 +125,7 @@ Generates the exploratory data analysis visualizations, including:
 - absolute magnitude versus Palermo scale
 - potential impact timeline
 
-### `software_development_ml_practice_1/modeling/train.py`
+### `asteroid_impact/modeling/train.py`
 
 Trains and evaluates the baseline neural network model. This script:
 
@@ -135,7 +135,7 @@ Trains and evaluates the baseline neural network model. This script:
 - calculates MAE, RMSE, and R² metrics
 - saves the model, scaler, metrics, and training history
 
-### `software_development_ml_practice_1/modeling/predict.py`
+### `asteroid_impact/modeling/predict.py`
 
 Loads the trained model and feature scaler, generates predictions for the processed features, and saves the results to a CSV file.
 

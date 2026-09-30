@@ -16,7 +16,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-from software_development_ml_practice_1.config import (
+from asteroid_impact.config import (
     MODELS_DIR,
     PROCESSED_DATA_DIR,
     REPORTS_DIR,

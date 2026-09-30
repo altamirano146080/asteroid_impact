@@ -18,7 +18,7 @@ Run:
 
 .. code-block:: bash
 
-   python -m software_development_ml_practice_1.dataset
+   python -m asteroid_impact.dataset
 
 By default, the project downloads a sample of up to 500 rows.
 
@@ -26,7 +26,7 @@ To download the dataset again, use:
 
 .. code-block:: bash
 
-   python -m software_development_ml_practice_1.dataset --force-download
+   python -m asteroid_impact.dataset --force-download
 
 The generated files are:
 
@@ -42,7 +42,7 @@ Run:
 
 .. code-block:: bash
 
-   python -m software_development_ml_practice_1.features
+   python -m asteroid_impact.features
 
 This command creates:
 
@@ -58,7 +58,7 @@ Run:
 
 .. code-block:: bash
 
-   python -m software_development_ml_practice_1.modeling.train
+   python -m asteroid_impact.modeling.train
 
 This command creates:
 
@@ -76,6 +76,6 @@ Run:
 
 .. code-block:: bash
 
-   python -m software_development_ml_practice_1.modeling.predict
+   python -m asteroid_impact.modeling.predict
 
 The predictions are saved as a CSV file in the processed data directory.
