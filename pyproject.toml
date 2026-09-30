@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "asteroid-impact-sdoml"
-version = "0.0.5"
+version = "0.0.7"
 description = "Machine learning project focused on data exploration, model training, visualization, and performance evaluation."
 authors = [
   { name = "Ruth Altamirano" },
@@ -41,6 +41,7 @@ dependencies = [
     "tqdm>=4.70.0",
     "loguru>=0.7.3",
     "plotly>=7.1.0",
+    "pyarrow>=14.0.1",
 ]
 
 [tool.black]
