@@ -262,6 +262,30 @@ The predictions are saved in:
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
+
+### Dataset
+
+This project uses the `sentry-impact-risk` dataset created by Julien Simon,
+available on Hugging Face:
+
+https://huggingface.co/datasets/juliensimon/sentry-impact-risk
+
+The dataset is licensed under the Creative Commons Attribution 4.0
+International (CC BY 4.0) license.
+
+The original data source is the NASA/JPL Center for Near-Earth Object Studies
+(CNEOS) Sentry system.
+
+Dataset source:
+https://huggingface.co/datasets/juliensimon/sentry-impact-risk
+
+Original data source:
+https://cneos.jpl.nasa.gov/sentry/
+
+The dataset is used for educational and machine learning purposes in this
+project. Any redistribution or reuse of the dataset is subject to its
+applicable license and attribution requirements.
+
 ## Authors
 
 - Ruth Altamirano Trujillo
