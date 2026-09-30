@@ -4,9 +4,9 @@ Machine learning project focused on asteroid impact-risk analysis. The goal is t
 
 This project follows a Cookiecutter Data Science-style organization and includes both an exploratory notebook and modular Python scripts for data preparation, feature engineering, visualization, model training, and prediction.
 
-## Documentación
+## Documentaction
 
-La documentación publicada está disponible en: [https://altamirano146080.github.io/software_development_ml_practice_1/](https://altamirano146080.github.io/software_development_ml_practice_1/)
+The publish documentation is at: [https://altamirano146080.github.io/software_development_ml_practice_1/](https://altamirano146080.github.io/software_development_ml_practice_1/)
 
 ## Overview
 
