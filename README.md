@@ -4,6 +4,10 @@ Machine learning project focused on asteroid impact-risk analysis. The goal is t
 
 This project follows a Cookiecutter Data Science-style organization and includes both an exploratory notebook and modular Python scripts for data preparation, feature engineering, visualization, model training, and prediction.
 
+## Documentation
+
+The publish documentation is at: [https://altamirano146080.github.io/software_development_ml_practice_1/](https://altamirano146080.github.io/software_development_ml_practice_1/)
+
 ## Overview
 
 The repository analyzes a dataset related to potential asteroid impact risk. It includes:
@@ -16,6 +20,15 @@ The repository analyzes a dataset related to potential asteroid impact risk. It 
 - model evaluation and predictions
 
 The model uses asteroid characteristics such as encounter velocity, absolute magnitude, diameter, Palermo scale, and potential impact dates to predict the logarithm of the impact probability.
+
+## Data
+
+This project uses the **`sentry-impact-risk`** dataset, which provides information on near-Earth objects and their potential collision risks.
+
+- **Source:** The dataset is downloaded via the Hugging Face hub ([juliensimon/sentry-impact-risk](https://huggingface.co/datasets/juliensimon/sentry-impact-risk)), curated by Julien Simon. The original observational data originates from the [NASA/JPL Center for Near-Earth Object Studies (CNEOS) Sentry system](https://cneos.jpl.nasa.gov/sentry/).
+- **How and why it is used:** The dataset is utilized to demonstrate a complete machine learning pipeline for regression tasks. We extract physical and kinematic features of the asteroids—such as encounter velocity, absolute magnitude, estimated diameter, and the Palermo scale—to train a baseline neural network. Because the actual impact probabilities are astronomically small, we transform the target variable to `log10(impact_probability)` to enable stable model training and evaluation.
+- **License:** The dataset is provided under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license. Any redistribution or reuse of this data is subject to its applicable license and attribution requirements.
+
 
 ## Project structure
 

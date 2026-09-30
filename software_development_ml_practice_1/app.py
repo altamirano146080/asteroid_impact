@@ -1,4 +1,5 @@
-"""Main Gradio application entry point."""
+import os
+import socket
 
 import gradio as gr
 
@@ -9,7 +10,7 @@ from software_development_ml_practice_1.ui.evaluation import create_evaluation_t
 
 def create_interface() -> gr.Blocks:
     """Create the main Gradio interface with all tabs."""
-    with gr.Blocks(title="Asteroid Impact Predictor", theme=gr.themes.Soft()) as demo:
+    with gr.Blocks(title="Asteroid Impact Predictor") as demo:
         gr.Markdown("# 🌍 Asteroid Impact Risk Dashboard")
         gr.Markdown("Interactive data exploration, training, and evaluation for the asteroid impact prediction model.")
 
@@ -21,10 +22,32 @@ def create_interface() -> gr.Blocks:
     return demo
 
 
+def _get_server_port() -> int:
+    """Return the configured port or an available port near the default."""
+    configured_port = os.getenv("GRADIO_SERVER_PORT")
+    if configured_port:
+        return int(configured_port)
+
+    default_port = 7860
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as port_socket:
+        try:
+            port_socket.bind(("127.0.0.1", default_port))
+        except OSError:
+            port_socket.bind(("127.0.0.1", 0))
+            return int(port_socket.getsockname()[1])
+    return default_port
+
+
 def launch_app():
     """Launch the Gradio application."""
     demo = create_interface()
-    demo.launch(server_name="0.0.0.0", server_port=7860, share=True, show_error=True)
+    demo.launch(
+        server_name=os.getenv("GRADIO_SERVER_NAME", "127.0.0.1"),
+        server_port=_get_server_port(),
+        share=os.getenv("GRADIO_SHARE", "true").lower() == "true",
+        theme=gr.themes.Soft(),
+        show_error=True,
+    )
 
 
 if __name__ == "__main__":

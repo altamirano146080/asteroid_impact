@@ -5,6 +5,7 @@ performance, and saves the trained model along with training metrics.
 """
 
 from pathlib import Path
+from typing import Any, Callable
 
 import joblib
 import numpy as np
@@ -32,13 +33,15 @@ SCALER_PATH = MODELS_DIR / "feature_scaler.joblib"
 METRICS_PATH = REPORTS_DIR / "model_metrics.csv"
 
 
-def build_model(input_shape: int) -> tf.keras.Model:
+def build_model(input_shape: int, learning_rate: float = 0.001) -> tf.keras.Model:
     """Create the neural network architecture.
 
     Parameters
     ----------
     input_shape : int
         Number of input features.
+    learning_rate : float, default=0.001
+        Learning rate for the optimizer.
 
     Returns
     -------
@@ -57,7 +60,7 @@ def build_model(input_shape: int) -> tf.keras.Model:
     )
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+        optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
         loss="mse",
         metrics=["mae"],
     )
@@ -71,7 +74,13 @@ def train_model(
     model_path: Path = MODEL_PATH,
     scaler_path: Path = SCALER_PATH,
     metrics_path: Path = METRICS_PATH,
-) -> None:
+    history_path: Path = REPORTS_DIR / "training_history.csv",
+    epochs: int = 100,
+    batch_size: int = 32,
+    learning_rate: float = 0.001,
+    sample_size: int = 0,
+    progress_callback: Callable[[float, str], Any] | None = None,
+) -> dict[str, Any]:
     """Train, evaluate, and save the neural network model.
 
     The function splits the data, scales the features, trains the model,
@@ -92,11 +101,18 @@ def train_model(
 
     Returns
     -------
-    None
-        Writes the trained model, scaler, and metrics to disk.
+    dict
+        Metrics and the Keras training history for interactive frontends.
     """
     features = pd.read_csv(features_path)
     labels = pd.read_csv(labels_path)["log_impact_probability"]
+
+    if sample_size > 0 and sample_size < len(features):
+        sample_indices = np.random.default_rng(42).choice(
+            len(features), int(sample_size), replace=False
+        )
+        features = features.iloc[sample_indices]
+        labels = labels.iloc[sample_indices]
 
     x_train, x_test, y_train, y_test = train_test_split(
         features,
@@ -110,21 +126,33 @@ def train_model(
     x_train_scaled = scaler.fit_transform(x_train)
     x_test_scaled = scaler.transform(x_test)
 
-    model = build_model(input_shape=x_train_scaled.shape[1])
+    model = build_model(
+        input_shape=x_train_scaled.shape[1],
+        learning_rate=learning_rate,
+    )
+
+    if progress_callback is not None:
+        progress_callback(0.0, "Training model...")
+
+    class ProgressCallback(tf.keras.callbacks.Callback):
+        def on_epoch_end(self, epoch, logs=None):
+            if progress_callback is not None:
+                progress_callback((epoch + 1) / epochs, f"Epoch {epoch + 1}/{epochs}")
 
     history = model.fit(
         x_train_scaled,
         y_train,
         validation_split=0.2,
-        epochs=100,
-        batch_size=32,
+        epochs=int(epochs),
+        batch_size=int(batch_size),
         verbose=1,
         callbacks=[
             tf.keras.callbacks.EarlyStopping(
                 monitor="val_loss",
                 patience=15,
                 restore_best_weights=True,
-            )
+            ),
+            ProgressCallback(),
         ],
     )
 
@@ -157,10 +185,7 @@ def train_model(
     metrics.to_csv(metrics_path, index=False)
 
     history_dataframe = pd.DataFrame(history.history)
-    history_dataframe.to_csv(
-        REPORTS_DIR / "training_history.csv",
-        index=False,
-    )
+    history_dataframe.to_csv(history_path, index=False)
 
     logger.info(f"MAE: {mae:.4f}")
     logger.info(f"RMSE: {rmse:.4f}")
@@ -169,6 +194,20 @@ def train_model(
     logger.success(f"Model saved to {model_path}")
     logger.success(f"Scaler saved to {scaler_path}")
     logger.success(f"Metrics saved to {metrics_path}")
+
+    if progress_callback is not None:
+        progress_callback(1.0, "Training complete")
+
+    return {
+        "metrics": {
+            "MAE": float(mae),
+            "RMSE": float(rmse),
+            "R2": float(r2),
+            "Test samples": int(len(y_test)),
+            "Epochs run": int(len(history.history["loss"])),
+        },
+        "history": history.history,
+    }
 
 
 @app.command()
