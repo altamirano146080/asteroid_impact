@@ -102,6 +102,10 @@ notebook: requirements
 docs-html:
 	$(MAKE) -C docs html
 
+## Launch Gradio interface
+.PHONY: app
+app: 
+	uv run python -m software_development_ml_practice_1.app
 
 #################################################################################
 # Self Documenting Commands                                                     #
