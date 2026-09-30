@@ -27,8 +27,8 @@ PREDICTIONS_PATH = PROCESSED_DIR / "predictions.csv"
 def ensure_data_ready() -> bool:
     """Ensure the dataset, features, and labels exist, downloading when needed."""
     try:
-        from software_development_ml_practice_1.dataset import download_dataset, prepare_dataset
-        from software_development_ml_practice_1.plots import create_features
+        from asteroid_impact.dataset import download_dataset, prepare_dataset
+        from asteroid_impact.plots import create_features
 
         if not RAW_DATASET_PATH.exists():
             download_dataset(output_path=RAW_DATASET_PATH)

@@ -52,7 +52,7 @@ Model prediction
 Interactive application
 -----------------------
 
-.. automodule:: software_development_ml_practice_1.app
+.. automodule:: asteroid_impact.app
    :members:
    :undoc-members:
    :show-inheritance:
@@ -60,11 +60,11 @@ Interactive application
 Interactive UI
 --------------
 
-.. automodule:: software_development_ml_practice_1.ui.data_exploration
+.. automodule:: asteroid_impact.ui.data_exploration
    :members:
 
-.. automodule:: software_development_ml_practice_1.ui.training
+.. automodule:: asteroid_impact.ui.training
    :members:
 
-.. automodule:: software_development_ml_practice_1.ui.evaluation
+.. automodule:: asteroid_impact.ui.evaluation
    :members:

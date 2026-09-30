@@ -3,7 +3,7 @@
 import gradio as gr
 import matplotlib.pyplot as plt
 
-from software_development_ml_practice_1.modeling.train import train_model
+from asteroid_impact.modeling.train import train_model
 
 from .components import ensure_data_ready
 
