@@ -187,8 +187,6 @@ def create_data_exploration_tab() -> None:
                 )
         
         # ==================== STATIC VISUALIZATIONS ====================
-        gr.Markdown("## 📊 Dataset Overview")
-        
         # Row 1: Distribution + Correlations
         with gr.Row():
             with gr.Column():
@@ -273,29 +271,12 @@ def create_data_exploration_tab() -> None:
             def on_change(x, y, b):
                 return update_all_plots(x, y, b)
             
-            x_var.change(
+            for control in (plot_type, x_var, y_var, bins_slider):
+                control.change(
                 fn=on_change,
                 inputs=[x_var, y_var, bins_slider],
                 outputs=[plot1, plot2, plot3, plot4]
-            )
-            
-            y_var.change(
-                fn=on_change,
-                inputs=[x_var, y_var, bins_slider],
-                outputs=[plot1, plot2, plot3, plot4]
-            )
-            
-            bins_slider.change(
-                fn=on_change,
-                inputs=[x_var, y_var, bins_slider],
-                outputs=[plot1, plot2, plot3, plot4]
-            )
-            
-            plot_type.change(
-                fn=on_change,
-                inputs=[x_var, y_var, bins_slider],
-                outputs=[plot1, plot2, plot3, plot4]
-            )
+                )
         
         # ==================== DATA SAMPLE ====================
         gr.Markdown("### 📥 Data Sample")
@@ -312,7 +293,10 @@ def create_data_exploration_tab() -> None:
                 )
             with gr.Column(scale=1):
                 download_btn = gr.Button("⬇️ Download", scale=1, size="lg")
-                download_file = gr.File(visible=False)
+                download_file = gr.File(
+                    label="CSV ready to download",
+                    interactive=False,
+                )
                 download_btn.click(
                     fn=download_sample_csv,
                     inputs=sample_rows,

@@ -41,8 +41,10 @@ dependencies = [
     "tqdm>=4.70.0",
     "loguru>=0.7.3",
     "plotly>=7.1.0",
-    "pyarrow>=14.0.1",
+    "pyarrow>=20.0.0",
+    "huggingface-hub>=0.34.0",
 ]
+
 
 [tool.black]
 line-length = 99
