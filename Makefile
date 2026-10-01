@@ -2,7 +2,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = software_development_ml_practice_1
+PROJECT_NAME = asteroid_impact
 PYTHON_VERSION = 3.13
 PYTHON_INTERPRETER = python
 
@@ -28,15 +28,15 @@ clean:
 ## Lint using flake8, black, and isort (use `make format` to do formatting)
 .PHONY: lint
 lint:
-	flake8 software_development_ml_practice_1
-	isort --check --diff software_development_ml_practice_1
-	black --check software_development_ml_practice_1
+	flake8 asteroid_impact
+	isort --check --diff asteroid_impact
+	black --check asteroid_impact
 
 ## Format source code with black
 .PHONY: format
 format:
-	isort software_development_ml_practice_1
-	black software_development_ml_practice_1
+	isort asteroid_impact
+	black asteroid_impact
 
 
 
@@ -61,30 +61,30 @@ create_environment:
 ## Make dataset
 .PHONY: data
 data: requirements
-	$(PYTHON_INTERPRETER) software_development_ml_practice_1/dataset.py
+	$(PYTHON_INTERPRETER) asteroid_impact/dataset.py
 
 ## Generate the features and labels
 .PHONY: features
 features: data
-	$(PYTHON_INTERPRETER)  software_development_ml_practice_1/features.py
+	$(PYTHON_INTERPRETER)  asteroid_impact/features.py
 
 
 ## Generate exploratory data analysis plots
 .PHONY: plots
 plots: data
-	$(PYTHON_INTERPRETER)  software_development_ml_practice_1/plots.py
+	$(PYTHON_INTERPRETER)  asteroid_impact/plots.py
 
 
 ## Train and evaluate the model
 .PHONY: train
 train: features
-	$(PYTHON_INTERPRETER)  software_development_ml_practice_1/modeling/train.py
+	$(PYTHON_INTERPRETER)  asteroid_impact/modeling/train.py
 
 
 ## Generate predictions with the trained model
 .PHONY: predict
 predict: train
-	$(PYTHON_INTERPRETER)  software_development_ml_practice_1/modeling/predict.py
+	$(PYTHON_INTERPRETER)  asteroid_impact/modeling/predict.py
 
 
 ## Execute the complete machine learning pipeline
@@ -105,7 +105,7 @@ docs-html:
 ## Launch Gradio interface
 .PHONY: app
 app: 
-	uv run python -m software_development_ml_practice_1.app
+	uv run python -m asteroid_impact.app
 
 #################################################################################
 # Self Documenting Commands                                                     #

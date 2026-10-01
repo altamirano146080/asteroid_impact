@@ -4,7 +4,7 @@ Module Reference
 Dataset
 -------
 
-.. automodule:: software_development_ml_practice_1.dataset
+.. automodule:: asteroid_impact.dataset
    :members:
    :undoc-members:
    :show-inheritance:
@@ -12,7 +12,7 @@ Dataset
 Features
 --------
 
-.. automodule:: software_development_ml_practice_1.features
+.. automodule:: asteroid_impact.features
    :members:
    :undoc-members:
    :show-inheritance:
@@ -20,7 +20,7 @@ Features
 Configuration
 -------------
 
-.. automodule:: software_development_ml_practice_1.config
+.. automodule:: asteroid_impact.config
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,7 +28,7 @@ Configuration
 Plots
 -----
 
-.. automodule:: software_development_ml_practice_1.plots
+.. automodule:: asteroid_impact.plots
    :members:
    :undoc-members:
    :show-inheritance:
@@ -36,7 +36,7 @@ Plots
 Model training
 --------------
 
-.. automodule:: software_development_ml_practice_1.modeling.train
+.. automodule:: asteroid_impact.modeling.train
    :members:
    :undoc-members:
    :show-inheritance:
@@ -44,7 +44,7 @@ Model training
 Model prediction
 ----------------
 
-.. automodule:: software_development_ml_practice_1.modeling.predict
+.. automodule:: asteroid_impact.modeling.predict
    :members:
    :undoc-members:
    :show-inheritance:
@@ -52,7 +52,7 @@ Model prediction
 Interactive application
 -----------------------
 
-.. automodule:: software_development_ml_practice_1.app
+.. automodule:: asteroid_impact.app
    :members:
    :undoc-members:
    :show-inheritance:
@@ -60,11 +60,11 @@ Interactive application
 Interactive UI
 --------------
 
-.. automodule:: software_development_ml_practice_1.ui.data_exploration
+.. automodule:: asteroid_impact.ui.data_exploration
    :members:
 
-.. automodule:: software_development_ml_practice_1.ui.training
+.. automodule:: asteroid_impact.ui.training
    :members:
 
-.. automodule:: software_development_ml_practice_1.ui.evaluation
+.. automodule:: asteroid_impact.ui.evaluation
    :members:

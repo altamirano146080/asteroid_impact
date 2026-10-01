@@ -12,7 +12,7 @@ import tensorflow as tf
 import typer
 from loguru import logger
 
-from software_development_ml_practice_1.config import (
+from asteroid_impact.config import (
     MODELS_DIR,
     PROCESSED_DATA_DIR,
 )

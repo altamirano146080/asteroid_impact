@@ -22,8 +22,8 @@ Clone the repository
 
 .. code-block:: bash
 
-   git clone https://github.com/altamirano146080/software_development_ml_practice_1.git
-   cd software_development_ml_practice_1
+   git clone https://github.com/altamirano146080/asteroid_impact.git
+   cd asteroid_impact
 
 Using ``uv``
 ------------

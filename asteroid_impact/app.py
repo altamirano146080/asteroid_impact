@@ -2,16 +2,15 @@ import os
 import socket
 
 import gradio as gr
-
-from software_development_ml_practice_1.ui.data_exploration import create_data_exploration_tab
-from software_development_ml_practice_1.ui.training import create_training_tab
-from software_development_ml_practice_1.ui.evaluation import create_evaluation_tab
+from asteroid_impact.ui.data_exploration import create_data_exploration_tab
+from asteroid_impact.ui.training import create_training_tab
+from asteroid_impact.ui.evaluation import create_evaluation_tab
 
 
 def create_interface() -> gr.Blocks:
     """Create the main Gradio interface with all tabs."""
     with gr.Blocks(title="Asteroid Impact Predictor") as demo:
-        gr.Markdown("# 🌍 Asteroid Impact Risk Dashboard")
+        gr.Markdown("# Asteroid Impact Risk Dashboard")
         gr.Markdown("Interactive data exploration, training, and evaluation for the asteroid impact prediction model.")
 
         with gr.Tabs():
@@ -39,7 +38,6 @@ def _get_server_port() -> int:
 
 
 def launch_app():
-    """Launch the Gradio application."""
     demo = create_interface()
     demo.launch(
         server_name=os.getenv("GRADIO_SERVER_NAME", "127.0.0.1"),
@@ -48,7 +46,6 @@ def launch_app():
         theme=gr.themes.Soft(),
         show_error=True,
     )
-
 
 if __name__ == "__main__":
     launch_app()

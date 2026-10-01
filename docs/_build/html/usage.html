@@ -249,12 +249,12 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">dataset</span></code> module downloads the dataset from Hugging Face, creates a
 local sample, removes incomplete rows, and saves the cleaned dataset.</p>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>software_development_ml_practice_1.dataset
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>asteroid_impact.dataset
 </pre></div>
 </div>
 <p>By default, the project downloads a sample of up to 500 rows.</p>
 <p>To download the dataset again, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>software_development_ml_practice_1.dataset<span class="w"> </span>--force-download
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>asteroid_impact.dataset<span class="w"> </span>--force-download
 </pre></div>
 </div>
 <p>The generated files are:</p>
@@ -267,7 +267,7 @@ local sample, removes incomplete rows, and saves the cleaned dataset.</p>
 <h2>Create features<a class="headerlink" href="#create-features" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">features</span></code> module creates the input features and the target labels.</p>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>software_development_ml_practice_1.features
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>asteroid_impact.features
 </pre></div>
 </div>
 <p>This command creates:</p>
@@ -280,7 +280,7 @@ local sample, removes incomplete rows, and saves the cleaned dataset.</p>
 <h2>Train the model<a class="headerlink" href="#train-the-model" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">train</span></code> module trains and evaluates the neural network.</p>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>software_development_ml_practice_1.modeling.train
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>asteroid_impact.modeling.train
 </pre></div>
 </div>
 <p>This command creates:</p>
@@ -295,7 +295,7 @@ local sample, removes incomplete rows, and saves the cleaned dataset.</p>
 <h2>Generate predictions<a class="headerlink" href="#generate-predictions" title="Link to this heading">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> module loads the trained model and generates predictions.</p>
 <p>Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>software_development_ml_practice_1.modeling.predict
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>asteroid_impact.modeling.predict
 </pre></div>
 </div>
 <p>The predictions are saved as a CSV file in the processed data directory.</p>

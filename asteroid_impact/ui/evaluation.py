@@ -10,7 +10,6 @@ import joblib
 from .components import FEATURES_PATH, LABELS_PATH, MODEL_PATH, SCALER_PATH
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-
 FEATURE_COLUMNS = [
     "palermo_scale_cum",
     "v_infinity_kms",
@@ -27,14 +26,14 @@ FEATURE_COLUMNS = [
 
 def load_trained_model():
     if not MODEL_PATH.exists() or not SCALER_PATH.exists():
-        return None, None, "❌ Trained model not found. Train a model first."
+        return None, None, "Trained model not found. Train a model first."
 
     try:
         model = tf.keras.models.load_model(MODEL_PATH)
         scaler = joblib.load(SCALER_PATH)
         return model, scaler, None
     except Exception as e:
-        return None, None, f"❌ Error loading model: {str(e)}"
+        return None, None, f"Error loading model: {str(e)}"
 
 
 def plot_predictions_vs_actual() -> plt.Figure:
@@ -53,6 +52,8 @@ def plot_predictions_vs_actual() -> plt.Figure:
 
     features = pd.read_csv(FEATURES_PATH)
     labels = pd.read_csv(LABELS_PATH)["log_impact_probability"]
+
+    features = features[FEATURE_COLUMNS]
 
     scaled = scaler.transform(features)
     pred = model.predict(scaled, verbose=0).ravel()
@@ -89,6 +90,8 @@ def get_evaluation_text() -> str:
 
     features = pd.read_csv(FEATURES_PATH)
     labels = pd.read_csv(LABELS_PATH)["log_impact_probability"]
+
+    features = features[FEATURE_COLUMNS]
 
     scaled = scaler.transform(features)
     pred = model.predict(scaled, verbose=0).ravel()
@@ -148,12 +151,11 @@ def predict_single_asteroid(
             f"- Percentage: {prob * 100:.8f}%"
         )
     except Exception as e:
-        return f"❌ Prediction failed: {str(e)}"
+        return f"Prediction failed: {str(e)}"
 
 
 def create_evaluation_tab() -> None:
-    """Create the Model Evaluation tab."""
-    with gr.TabItem("📈 Model Evaluation", id="evaluation"):
+    with gr.TabItem("Model Evaluation", id="evaluation"):
         gr.Markdown("## Evaluate the trained model")
         with gr.Row():
             with gr.Column():
@@ -163,7 +165,7 @@ def create_evaluation_tab() -> None:
                     interactive=False,
                     value=get_evaluation_text(),
                 )
-                reload_metrics = gr.Button("🔄 Reload metrics")
+                reload_metrics = gr.Button("Reload metrics")
             with gr.Column():
                 eval_plot = gr.Plot(label="Predictions vs Actual")
 
@@ -172,7 +174,7 @@ def create_evaluation_tab() -> None:
             outputs=metrics_text,
         )
 
-        eval_button = gr.Button("📊 Load evaluation plot", variant="primary")
+        eval_button = gr.Button("Load evaluation plot", variant="primary")
         eval_button.click(
             fn=plot_predictions_vs_actual,
             outputs=eval_plot,
@@ -192,7 +194,7 @@ def create_evaluation_tab() -> None:
                 torino = gr.Number(label="Torino scale", value=0)
                 year_min = gr.Number(label="Risk interval start year", value=2027)
                 year_max = gr.Number(label="Risk interval end year", value=2122)
-                predict_btn = gr.Button("🔮 Predict", variant="primary")
+                predict_btn = gr.Button("Predict", variant="primary")
 
             with gr.Column():
                 prediction_box = gr.Textbox(

@@ -11,7 +11,7 @@ import pandas as pd
 import typer
 from loguru import logger
 
-from software_development_ml_practice_1.config import PROCESSED_DATA_DIR
+from asteroid_impact.config import PROCESSED_DATA_DIR
 
 app = typer.Typer()
 
