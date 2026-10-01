@@ -1,4 +1,4 @@
-Software Development Oriented to Machine Learning Practice
+Asteroid impact-risk analysis
 ==========================================================
 
 This project focuses on the analysis of asteroid impact risk using machine
