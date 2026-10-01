@@ -7,7 +7,9 @@ This project follows a Cookiecutter Data Science-style organization and includes
 ## Documentation
 
 The publish documentation is at: [https://altamirano146080.github.io/software_development_ml_practice_1/](https://altamirano146080.github.io/software_development_ml_practice_1/)
-
+## Download package
+**`uvx --from asteroid-impact-sdoml asteroid-demo`**
+ 
 ## Overview
 
 The repository analyzes a dataset related to potential asteroid impact risk. It includes:
