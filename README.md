@@ -276,5 +276,5 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Authors
 
 - Ruth Altamirano Trujillo
-- Malena Flores Chacón
+- Malena Chacón Flores
 - Odei Martinez de Morentin
