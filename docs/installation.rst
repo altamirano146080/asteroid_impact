@@ -17,6 +17,12 @@ The project requires:
 * Loguru.
 * Sphinx, if the documentation needs to be built locally.
 
+Installing package
+--------------------
+.. code-block:: bash
+
+   uvx --from asteroid-impact-sdoml asteroid-demo
+
 Clone the repository
 --------------------
 
