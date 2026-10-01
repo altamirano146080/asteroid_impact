@@ -10,7 +10,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 
-project = 'Software Development Oriented to Machine Learning Practice'
+project = 'Asteroid impact-risk analysis'
 copyright = '2026, Ruth Altamirano, Malena Chacón, Odei Martinez de Morentin'
 author = 'Ruth Altamirano, Malena Chacón, Odei Martinez de Morentin'
 
