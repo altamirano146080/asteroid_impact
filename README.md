@@ -1,4 +1,4 @@
-# Software Development ML Practice 1
+# Asteroid impact-risk analysis
 
 Machine learning project focused on asteroid impact-risk analysis. The goal is to explore a dataset of near-Earth objects, analyze their risk-related features, train a baseline predictive model, and evaluate its performance through a structured machine learning pipeline.
 
@@ -7,6 +7,7 @@ This project follows a Cookiecutter Data Science-style organization and includes
 ## Documentation
 
 The publish documentation is at: [[https://altamirano146080.github.io/asteroid_impact/](https://altamirano146080.github.io/asteroid_impact/))
+
 ## Download package
 **`uvx --from asteroid-impact-sdoml asteroid-demo`**
  
