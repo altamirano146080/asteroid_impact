@@ -57,7 +57,7 @@ def train_custom_model(
 
 def create_training_tab() -> None:
     """Create the Training tab."""
-    with gr.TabItem("🚀 Training Interface", id="training"):
+    with gr.TabItem("Training Interface", id="training"):
         gr.Markdown("## Train the model")
         with gr.Row():
             with gr.Column():
@@ -65,7 +65,7 @@ def create_training_tab() -> None:
                 batch_size = gr.Slider(4, 128, 32, step=4, label="Batch Size")
                 learning_rate = gr.Number(label="Learning Rate", value=0.001, precision=6)
                 sample_size = gr.Slider(0, 1000, 0, step=50, label="Sample Size (0 = all)")
-                train_btn = gr.Button("🎯 Start training", variant="primary")
+                train_btn = gr.Button("Start training", variant="primary")
 
             with gr.Column():
                 status_box = gr.Textbox(label="Status", interactive=False)

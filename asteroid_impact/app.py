@@ -10,7 +10,7 @@ from asteroid_impact.ui.evaluation import create_evaluation_tab
 def create_interface() -> gr.Blocks:
     """Create the main Gradio interface with all tabs."""
     with gr.Blocks(title="Asteroid Impact Predictor") as demo:
-        gr.Markdown("# 🌍 Asteroid Impact Risk Dashboard")
+        gr.Markdown("# Asteroid Impact Risk Dashboard")
         gr.Markdown("Interactive data exploration, training, and evaluation for the asteroid impact prediction model.")
 
         with gr.Tabs():
@@ -38,7 +38,6 @@ def _get_server_port() -> int:
 
 
 def launch_app():
-    
     demo = create_interface()
     demo.launch(
         server_name=os.getenv("GRADIO_SERVER_NAME", "127.0.0.1"),

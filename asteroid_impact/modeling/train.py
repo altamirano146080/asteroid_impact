@@ -1,8 +1,4 @@
-"""Model training pipeline for the impact-probability regressor.
-
-This module builds the neural network, fits it on scaled features, evaluates
-performance, and saves the trained model along with training metrics.
-"""
+"""Model training pipeline for the impact-probability regressor."""
 
 from pathlib import Path
 from typing import Any, Callable
@@ -32,23 +28,22 @@ MODEL_PATH = MODELS_DIR / "impact_probability_model.keras"
 SCALER_PATH = MODELS_DIR / "feature_scaler.joblib"
 METRICS_PATH = REPORTS_DIR / "model_metrics.csv"
 
+# DEFINIMOS EL ORDEN ESTRICTO AQUÍ
+FEATURE_COLUMNS = [
+    "palermo_scale_cum",
+    "v_infinity_kms",
+    "n_potential_impacts",
+    "palermo_scale_max",
+    "diameter_km",
+    "last_observation_jd",
+    "absolute_magnitude",
+    "torino_scale",
+    "year_range_min",
+    "year_range_max",
+]
+
 
 def build_model(input_shape: int, learning_rate: float = 0.001) -> tf.keras.Model:
-    """Create the neural network architecture.
-
-    Parameters
-    ----------
-    input_shape : int
-        Number of input features.
-    learning_rate : float, default=0.001
-        Learning rate for the optimizer.
-
-    Returns
-    -------
-    tensorflow.keras.Model
-        A compiled neural network model.
-    """
-
     model = tf.keras.Sequential(
         [
             tf.keras.layers.Input(shape=(input_shape,)),
@@ -64,7 +59,6 @@ def build_model(input_shape: int, learning_rate: float = 0.001) -> tf.keras.Mode
         loss="mse",
         metrics=["mae"],
     )
-
     return model
 
 
@@ -81,31 +75,13 @@ def train_model(
     sample_size: int = 0,
     progress_callback: Callable[[float, str], Any] | None = None,
 ) -> dict[str, Any]:
-    """Train, evaluate, and save the neural network model.
-
-    The function splits the data, scales the features, trains the model,
-    calculates evaluation metrics, and saves the model and scaler.
-
-    Parameters
-    ----------
-    features_path : Path, default=FEATURES_PATH
-        Path to the input feature data.
-    labels_path : Path, default=LABELS_PATH
-        Path to the target labels.
-    model_path : Path, default=MODEL_PATH
-        Path where the trained model will be saved.
-    scaler_path : Path, default=SCALER_PATH
-        Path where the feature scaler will be saved.
-    metrics_path : Path, default=METRICS_PATH
-        Path where the evaluation metrics will be saved.
-
-    Returns
-    -------
-    dict
-        Metrics and the Keras training history for interactive frontends.
-    """
+    
     features = pd.read_csv(features_path)
     labels = pd.read_csv(labels_path)["log_impact_probability"]
+
+    # FORZAMOS EL ORDEN DE LAS COLUMNAS AQUÍ
+    # Esto asegura que el scaler memorice exactamente este orden
+    features = features[FEATURE_COLUMNS]
 
     if sample_size > 0 and sample_size < len(features):
         sample_indices = np.random.default_rng(42).choice(
@@ -183,17 +159,12 @@ def train_model(
     )
 
     metrics.to_csv(metrics_path, index=False)
-
     history_dataframe = pd.DataFrame(history.history)
     history_dataframe.to_csv(history_path, index=False)
 
     logger.info(f"MAE: {mae:.4f}")
     logger.info(f"RMSE: {rmse:.4f}")
     logger.info(f"R2: {r2:.4f}")
-
-    logger.success(f"Model saved to {model_path}")
-    logger.success(f"Scaler saved to {scaler_path}")
-    logger.success(f"Metrics saved to {metrics_path}")
 
     if progress_callback is not None:
         progress_callback(1.0, "Training complete")
@@ -209,19 +180,9 @@ def train_model(
         "history": history.history,
     }
 
-
 @app.command()
 def main():
-    """Train and evaluate the model.
-
-    Returns
-    -------
-    None
-        Executes the training pipeline.
-    """
-
     train_model()
-
 
 if __name__ == "__main__":
     app()
